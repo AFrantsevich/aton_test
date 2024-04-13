@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}New Order{% endblock %}
+{% block content %}
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  </head>
+  <body>
+<form method="post" novalidate>
+  <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Номер счета</th>
+      <th scope="col">Фамилия</th>
+      <th scope="col">Имя</th>
+      <th scope="col">Отчество</th>
+      <th scope="col">Дата рождения</th>
+      <th scope="col">ИНН</th>
+      <th scope="col">ФИО ответственного</th>
+      <th scope="col">Статус</th>
+    </tr>
+  </thead>
+  <tbody>
+{{ clients_form.management_form }}
+{% for client in clients_form %}
+    <tr>
+      <td>{{client.instance.bank_account_number}}</td>
+      <td>{{client.instance.last_name}}</td>
+      <td>{{client.instance.first_name}}</td>
+      <td>{{client.instance.middle_name}}</td>
+      <td>{{client.instance.birth_date}}</td>
+      <td>{{client.instance.inn}}</td>
+      <td>{% for employee in client.instance.response_person.all %}
+            {{ employee.userprofile }}
+          <br>
+          {% endfor %}
+      </td>
+      <td> {{ client }} </td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+            {% csrf_token %}
+    <div class="text-center">
+            <button type="submit" class="btn btn-primary">Save</button>
+    </div>
+              </form>
+  </body>
+
+{% endblock %}

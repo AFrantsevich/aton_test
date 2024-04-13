@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ru">
+    {% load static %}
+    <header class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item dropdown no-arrow mx-1">
+                <a class="nav-link dropdown-toggle"
+                   href="{% url 'clients:index' %}"
+                   role="button">
+                    <i class="fa-solid fa-house"></i>
+                </a>
+            </li>
+              {% if user.is_authenticated %}
+            <form method="POST" enctype="multipart/form-data" action="{% url 'users:logout' %}">
+     {% csrf_token %}
+     <button class="btn btn-primary mt-3" name="save_button">EXIT!</button>
+ </form>
+              {% endif %}
+        </ul>
+    </header>
+</html>
